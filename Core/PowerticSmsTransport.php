@@ -75,7 +75,7 @@ class PowerticSmsTransport implements TransportInterface
 			$message = [
 				"tipo_envio" => "short",
 				"referencia" => "envio de api",
-				"mensagens": array([
+				"mensagens" => array([
 					"numero" => $lead->getLeadPhoneNumber(),
 					"mensagem" => $content,
 					"DataAgendamento" => $now->format('Y-m-d H:i:s')
