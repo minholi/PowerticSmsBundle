@@ -13,6 +13,7 @@ namespace MauticPlugin\PowerticSmsBundle\Core;
 
 use Exception;
 use Throwable;
+use DateTime;
 use Psr\Log\LoggerInterface;
 use Mautic\LeadBundle\Entity\Lead;
 use libphonenumber\PhoneNumberUtil;
@@ -69,14 +70,16 @@ class PowerticSmsTransport implements TransportInterface
 		try {
 			$this->configureClient();
 
+			$now = new DateTime();
+
 			$message = [
-				'to' => $lead->getLeadPhoneNumber(),
-				'contents' => array(
-					[
-						"type" => "text",
-						"text" => $content
-					]
-				),
+				"tipo_envio" => "short",
+				"referencia" => "envio de api",
+				"mensagens": array([
+					"numero" => $lead->getLeadPhoneNumber(),
+					"mensagem" => $content,
+					"DataAgendamento" => $now->format('Y-m-d H:i:s')
+				])
 			];
 
 			try {
